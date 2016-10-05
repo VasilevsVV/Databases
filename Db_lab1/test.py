@@ -11,3 +11,4 @@ db.add_city("Kiev", 150000, 12000, 0)
 
 db.out_countries()
 db.out_cityes()
+
