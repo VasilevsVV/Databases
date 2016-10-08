@@ -1,5 +1,6 @@
 from entity import country
 from entity import city
+from file_helper import file_helper
 
 class dbms:
     id = 1
@@ -30,27 +31,34 @@ class dbms:
         if c_id not in self.countries:
             print "There are no such country."
             return
-        self.countries[c_id].c_ids.append(c_id)
+        self.countries[c_id].c_ids.append(tmp.id)
         self.cities[tmp.id] = tmp
 
     def del_city(self, id):
         if id in self.cities:
-            self.countries[self.cities[id].c_id].c_ids.delete(id)
+            self.countries[self.cities[id].c_id].c_ids.remove(id)
             del self.cities[id]
         else:
             print "There is no city with such id"
 
     def del_country(self, id):
-        #TODO: make country deleteing
-        return
+        if id in self.countries:
+            for i in self.countries[id].c_ids:
+                self.del_city(i)
+            del self.countries[id]
+        else:
+            print "there is no country with such id"
 
     def find_city(self, value, field):
         #TODO: make searching by field
         return
 
-    def task_fun(self):
-        #TODO: resolve the task
-        return
+    def collect_countries(self, filter):
+        res = []
+        for i in self.countries:
+            if filter(self.countries[i]):
+                res.append(self.countries[i])
+        return res
 
 
 
