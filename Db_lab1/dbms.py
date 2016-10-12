@@ -14,9 +14,28 @@ class dbms:
         self.countries = {}
         self.cities = {}
 
+    def __del__(self):
+        self.countries[-1] = country.unique_id
+        self.cities[-1] = city.unique_id
+        file_helper.dump_to_file(self.countries, "counrties.txt")
+        file_helper.dump_to_file(self.cities, "cities.txt")
+
+    def load_db(self):
+        self.countries = file_helper.load_from_file("counties.txt")
+        self.cities = file_helper.load_from_file("cities.txt")
+        country.unique_id = self.countries[-1]
+        city.unique_id = self.cities[-1]
+        del self.countries[-1]
+        del self.cities[-1]
+
     def out_countries(self):
         for i in self.countries:
             self.countries[i].out()
+
+    @staticmethod
+    def out_lands(countries):
+        for i in countries:
+            countries[i].out()
 
     def out_cityes(self):
         for i in self.cities:
@@ -53,12 +72,50 @@ class dbms:
         #TODO: make searching by field
         return
 
+
+    def task_filter(self, land):
+        counter = 0
+        for c_id in land.c_ids:
+            if self.cities[c_id].population > 1000000:
+                counter += 1
+        return counter > 3
+
     def collect_countries(self, filter):
-        res = []
+        res = {}
         for i in self.countries:
             if filter(self.countries[i]):
-                res.append(self.countries[i])
+                res[i] = self.countries[i]
         return res
+
+    def update_country(self, id, atr, value):
+        land = self.countries[id]
+        if land is None:
+            print "Wtere is no country with such id."
+        else:
+            if atr == self.name:
+                land.name = value
+            elif atr == self.mainl:
+                land.mainl = value
+            elif atr == self.currency:
+                land.currency = value
+            else:
+                print "No such field in country."
+
+    def update_city(self, id, atr, value):
+        city = self.cities[id]
+        if city is None:
+            print "Wtere is no city with such id."
+        else:
+            if atr == self.name:
+                city.name = value
+            elif atr == self.population:
+                city.population = value
+            elif atr == self.area:
+                city.area = value
+            else:
+                print "No such field in city."
+
+
 
 
 
