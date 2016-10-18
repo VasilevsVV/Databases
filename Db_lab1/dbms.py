@@ -90,7 +90,7 @@ class dbms:
     def update_country(self, id, atr, value):
         land = self.countries[id]
         if land is None:
-            print "Wtere is no country with such id."
+            print "There is no country with such id."
         else:
             if atr == self.name:
                 land.name = value
@@ -104,7 +104,7 @@ class dbms:
     def update_city(self, id, atr, value):
         city = self.cities[id]
         if city is None:
-            print "Wtere is no city with such id."
+            print "There is no city with such id."
         else:
             if atr == self.name:
                 city.name = value

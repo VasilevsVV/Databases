@@ -15,6 +15,7 @@ class menu:
     def select_menu():
         print "1 - country"
         print "2 - city"
+        print "else - cancel"
 
     @staticmethod
     def start_menu(db):
@@ -23,6 +24,7 @@ class menu:
             key = input()
             if key == 1:
                 db.out_countries()
+                db.out_cityes()
             elif key == 2:
                 menu.select_menu()
                 key1 = input()
@@ -41,9 +43,11 @@ class menu:
                     population = input()
                     print "area (int):"
                     area = input()
-                    db.add_country(name, population, area)
+                    print "Country id (int)"
+                    c_id = input()
+                    db.add_city(name, population, area, c_id)
                 else:
-                    print "Wrong key!"
+                    continue
             elif key == 3:
                 menu.select_menu()
                 key1 = input()
@@ -64,7 +68,7 @@ class menu:
                     val = input()
                     db.update_city(id, attr, val)
                 else:
-                    print "Wrong key!"
+                    continue
             elif key == 4:
                 menu.select_menu()
                 key1 = input()
@@ -77,7 +81,7 @@ class menu:
                     id = input()
                     db.delete_city(id)
                 else:
-                    print "Wrong key!"
+                    continue
             elif key == 5:
                 dbms.out_lands(db.collect_countries(lambda x: db.task_filter(x)))
             elif key == 6:
