@@ -22,4 +22,4 @@ class city:
         city.unique_id += 1
 
     def out(self):
-        print str(self.id) + ': ' + self.name + '> \n\tp: ' + str(self.population) + '| a: ' + str(self.area)
+        print str(self.id) + ': ' + self.name + '> ' + str(self.c_id) + '\n\tp: ' + str(self.population) + '| a: ' + str(self.area)

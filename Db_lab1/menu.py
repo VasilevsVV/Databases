@@ -83,7 +83,7 @@ class menu:
                 else:
                     continue
             elif key == 5:
-                dbms.out_lands(db.collect_countries(lambda x: db.task_filter(x)))
+                dbms.out_lands(db.task_select())
             elif key == 6:
                 break
             else:

@@ -50,20 +50,23 @@ class dbms:
         if c_id not in self.countries:
             print "There are no such country."
             return
-        self.countries[c_id].c_ids.append(tmp.id)
+        #self.countries[c_id].c_ids.append(tmp.id)
         self.cities[tmp.id] = tmp
 
     def del_city(self, id):
         if id in self.cities:
-            self.countries[self.cities[id].c_id].c_ids.remove(id)
+            #self.countries[self.cities[id].c_id].c_ids.remove(id)
             del self.cities[id]
         else:
             print "There is no city with such id"
 
     def del_country(self, id):
         if id in self.countries:
-            for i in self.countries[id].c_ids:
-                self.del_city(i)
+            # for i in self.countries[id].c_ids:
+            #     self.del_city(i)
+            for i in self.cities.copy():
+                if self.cities[i].c_id == id:
+                    self.del_city(i)
             del self.countries[id]
         else:
             print "there is no country with such id"
@@ -71,6 +74,22 @@ class dbms:
     def find_city(self, value, field):
         #TODO: make searching by field
         return
+
+    def task_select(self):
+        res = {}
+        buf = {}
+        for i in self.cities:
+            id = self.cities[i].c_id
+            if res.has_key(id):
+                continue
+            elif buf.has_key(id):
+                if buf[id] > 3:
+                    res[id] = self.countries[id]
+                else:
+                    buf[id] += 1
+            else:
+                buf[id] = 1
+        return res
 
 
     def task_filter(self, land):
